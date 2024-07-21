@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet, Image, Platform } from 'react-native';
+import {StyleSheet, Image, Platform, Button} from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
@@ -8,9 +8,11 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { supabase } from '@/utils/supabase'
 import {useEffect, useState} from "react";
+import {useAuth} from "@/context/AuthContext";
 
 export default function TabTwoScreen() {
   const [id, setId] = useState("")
+  const { signOut } = useAuth()
 
   useEffect(() => {
     const init = async () => {
@@ -35,6 +37,9 @@ export default function TabTwoScreen() {
         <ThemedText type="title">
           iddd: {id}
         </ThemedText>
+        <Button title={"Sign out"} onPress={() => {
+            signOut()
+        }}/>
       </ThemedView>
       <ThemedText>This app includes example code to help you get started.</ThemedText>
       <Collapsible title="File-based routing">

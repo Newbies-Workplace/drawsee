@@ -21,7 +21,7 @@ export default function SignInScreen() {
 
         <Button title={"Sign in"} onPress={() => {
             signIn();
-            router.replace('(tabs)');
+            router.replace('/');
         }}/>
 
         {/*<GoogleSigninButton*/}
