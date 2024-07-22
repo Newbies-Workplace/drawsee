@@ -14,9 +14,7 @@ export default function SignInScreen() {
   });
 
   return (
-    <View>
-      <Text>Test login</Text>
-
+    <View className={"flex justify-center items-center w-full h-full"}>
       <GoogleSigninButton
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
