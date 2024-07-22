@@ -1,17 +1,23 @@
-import { useStorageState } from "@/hooks/useStorageState";
 import { supabase } from "@/utils/supabase";
-import { type PropsWithChildren, createContext, useContext } from "react";
+import { Session } from "@supabase/auth-js";
+import {
+  type PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 const AuthContext = createContext<{
   signIn: (idToken: string) => Promise<void>;
   signOut: () => void;
-  session?: string | null;
   isLoading: boolean;
+  session?: Session | null;
 }>({
   signIn: () => Promise.reject(),
   signOut: () => null,
+  isLoading: true,
   session: null,
-  isLoading: false,
 });
 
 // This hook can be used to access the user info.
@@ -29,25 +35,39 @@ export function useAuth() {
 }
 
 export function AuthContextProvider({ children }: PropsWithChildren) {
-  const [[isLoading, session], setSession] = useStorageState("session");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setIsLoading(false);
+    });
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setIsLoading(false);
+    });
+  }, []);
+
+  const signIn = async (idToken: string) => {
+    await supabase.auth.signInWithIdToken({
+      provider: "google",
+      token: idToken,
+    });
+  };
+
+  const signOut = async () => {
+    setSession(null);
+  };
 
   return (
     <AuthContext.Provider
       value={{
-        // todo cleanup and add error handling
-        signIn: async (idToken: string) => {
-          const { data, error } = await supabase.auth.signInWithIdToken({
-            provider: "google",
-            token: idToken,
-          });
-
-          setSession(data.session?.access_token ?? null);
-        },
-        signOut: () => {
-          setSession(null);
-        },
+        signIn: signIn,
+        signOut: signOut,
+        isLoading: isLoading,
         session,
-        isLoading,
       }}
     >
       {children}
