@@ -59,6 +59,7 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
 
   const signOut = async () => {
     setSession(null);
+    await supabase.auth.signOut();
   };
 
   return (
