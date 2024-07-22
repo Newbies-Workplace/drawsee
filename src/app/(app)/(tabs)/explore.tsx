@@ -10,7 +10,7 @@ import { supabase } from '@/utils/supabase'
 import {useEffect, useState} from "react";
 import {useAuth} from "@/context/AuthContext";
 
-export default function TabTwoScreen() {
+export default function ExploreScreen() {
   const [id, setId] = useState("")
   const { signOut } = useAuth()
 

@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "test": "jest --watchAll",
     "lint": "expo lint",
     "generate-types": "dotenvx run --quiet -- cross-var npx supabase gen types --lang=typescript --project-id $PROJECT_REF --schema public > src/types/supabase-db-types.ts"
@@ -17,6 +17,9 @@
     "@dotenvx/dotenvx": "^1.5.0",
     "@expo/vector-icons": "^14.0.2",
     "@react-native-async-storage/async-storage": "1.23.1",
+    "@react-native-firebase/app": "^20.3.0",
+    "@react-native-firebase/crashlytics": "^20.3.0",
+    "@react-native-google-signin/google-signin": "^12.2.1",
     "@react-navigation/native": "^6.0.2",
     "@supabase/supabase-js": "^2.44.4",
     "@types/tailwindcss": "^3.1.0",

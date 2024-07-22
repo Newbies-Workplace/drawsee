@@ -13,10 +13,13 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
+      "bundleIdentifier": "pl.newbies.drawsee",
+      "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true
     },
     "android": {
       "package": "pl.newbies.drawsee",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -25,22 +28,28 @@
     "plugins": [
       "expo-router",
       "@react-native-google-signin/google-signin",
+      "@react-native-firebase/app",
+      "@react-native-firebase/crashlytics",
       [
         "expo-build-properties",
         {
-          "android": {
-            "compileSdkVersion": 34,
-            "targetSdkVersion": 34,
-            "buildToolsVersion": "34.0.0"
-          },
           "ios": {
-            "deploymentTarget": "14.0"
+            "useFrameworks": "static"
           }
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "eb143293-e09d-429c-96b5-2755c48c15c5"
+      }
+    },
+    "owner": "rstnewbies"
   }
 }

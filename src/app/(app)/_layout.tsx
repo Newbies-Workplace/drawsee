@@ -1,6 +1,12 @@
-import {Redirect, Stack} from 'expo-router';
+import {Redirect, Stack, Tabs} from 'expo-router';
+import React from 'react';
+
+import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { Colors } from '@/constants/Colors';
+import { useColorScheme } from '@/hooks/useColorScheme';
 import {useAuth} from "@/context/AuthContext";
 import {Text} from "react-native";
+import TabLayout from "@/app/(app)/(tabs)/_layout";
 
 export default function AppLayout() {
     const { session, isLoading } = useAuth();
@@ -13,15 +19,13 @@ export default function AppLayout() {
     // Only require authentication within the (app) group's layout as users
     // need to be able to access the (auth) group and sign in again.
     if (!session) {
-        // On web, static rendering will stop here as the user is not authenticated
-        // in the headless Node process that the pages are rendered in.
         return <Redirect href="/sign-in" />;
     }
 
 
     return (
-        <Stack>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-        </Stack>
-    );
+    <Stack>
+        <Stack.Screen name="(tabs)" />
+    </Stack>
+  );
 }

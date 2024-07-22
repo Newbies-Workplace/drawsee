@@ -1,13 +1,14 @@
-import { useContext, createContext, type PropsWithChildren } from 'react';
-import { useStorageState } from '@/hooks/useStorageState';
+import {createContext, type PropsWithChildren, useContext} from 'react';
+import {useStorageState} from '@/hooks/useStorageState';
+import {supabase} from "@/utils/supabase";
 
 const AuthContext = createContext<{
-    signIn: () => void;
+    signIn: (idToken: string) => Promise<void>;
     signOut: () => void;
     session?: string | null;
     isLoading: boolean;
 }>({
-    signIn: () => null,
+    signIn: () => Promise.reject(),
     signOut: () => null,
     session: null,
     isLoading: false,
@@ -31,9 +32,13 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
     return (
         <AuthContext.Provider
             value={{
-                signIn: () => {
-                    // Perform sign-in logic here
-                    setSession('xxx');
+                signIn: async (idToken: string) => {
+                    const { data, error } = await supabase.auth.signInWithIdToken({
+                        provider: 'google',
+                        token: idToken,
+                    })
+
+                    setSession(data.session?.access_token ?? null);
                 },
                 signOut: () => {
                     setSession(null);
