@@ -23,7 +23,7 @@ export default function ExploreScreen() {
   }, []);
 
   return (
-    <View className={"flex justify-center items-center w-full h-full"}>
+    <View className={"flex-1 justify-center items-center w-full h-full"}>
       <Button
         title={"Sign out"}
         onPress={() => {

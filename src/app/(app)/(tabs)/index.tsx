@@ -17,7 +17,7 @@ export default function HomeScreen() {
   }, []);
 
   return (
-    <View className={"flex justify-center items-center w-full h-full"}>
+    <View className={"flex-1 justify-center items-center w-full h-full"}>
       <Text>Test: {JSON.stringify(data)}</Text>
     </View>
   );
