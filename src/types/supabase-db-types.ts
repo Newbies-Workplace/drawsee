@@ -9,23 +9,114 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      Test: {
+      friend_invitations: {
+        Row: {
+          created_at: string | null;
+          from: string;
+          id: number;
+          to: string;
+        };
+        Insert: {
+          created_at?: string | null;
+          from: string;
+          id?: number;
+          to: string;
+        };
+        Update: {
+          created_at?: string | null;
+          from?: string;
+          id?: number;
+          to?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "friend_invitations_from_fkey";
+            columns: ["from"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "friend_invitations_from_fkey1";
+            columns: ["from"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "friend_invitations_to_fkey";
+            columns: ["to"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "friend_invitations_to_fkey1";
+            columns: ["to"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      friends: {
         Row: {
           created_at: string;
-          data: string | null;
+          first: string;
+          second: string;
+        };
+        Insert: {
+          created_at?: string;
+          first: string;
+          second: string;
+        };
+        Update: {
+          created_at?: string;
+          first?: string;
+          second?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "friends_first_fkey";
+            columns: ["first"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "friends_second_fkey";
+            columns: ["second"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      users: {
+        Row: {
+          created_at: string;
+          handle: string;
           id: string;
         };
         Insert: {
           created_at?: string;
-          data?: string | null;
-          id?: string;
+          handle: string;
+          id: string;
         };
         Update: {
           created_at?: string;
-          data?: string | null;
+          handle?: string;
           id?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "users_id_fkey";
+            columns: ["id"];
+            isOneToOne: true;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
       };
     };
     Views: {

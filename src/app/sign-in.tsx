@@ -1,4 +1,4 @@
-import { useAuth } from "@/context/AuthContext";
+import { useAuthStore } from "@/store/useAuthStore";
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -7,7 +7,7 @@ import { router } from "expo-router";
 import { View } from "react-native";
 
 export default function SignInScreen() {
-  const { signIn } = useAuth();
+  const { signIn } = useAuthStore();
 
   GoogleSignin.configure({
     webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,

@@ -1,10 +1,11 @@
-import { useAuth } from "@/context/AuthContext";
-import { Redirect, Stack, Tabs } from "expo-router";
+import { useAuthStore } from "@/store/useAuthStore";
+import { Redirect, Stack } from "expo-router";
 import React from "react";
 import { Text } from "react-native";
 
 export default function AppLayout() {
-  const { session, isLoading } = useAuth();
+  const { session, user, isLoading } = useAuthStore();
+  const isUserSetup = user?.handle !== null;
 
   if (isLoading) {
     return <Text>Loading...</Text>;
@@ -12,6 +13,10 @@ export default function AppLayout() {
 
   if (!session) {
     return <Redirect href="/sign-in" />;
+  }
+
+  if (!isUserSetup) {
+    return <Redirect href="/setup-account" />;
   }
 
   return (
